@@ -1,7 +1,9 @@
 BasedOnStyle: Google
 BinPackArguments: false
-BinPackParameters: false
+BinPackParameters: OnePerLine
+AllowAllArgumentsOnNextLine: false
+AllowAllParametersOfDeclarationOnNextLine: false
 ColumnLimit: 100
 DerivePointerAlignment: false
-IndentCaseLabels: false
 PointerAlignment: Left
+IndentCaseLabels: false
