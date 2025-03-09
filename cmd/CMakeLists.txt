@@ -1,7 +1,11 @@
 # Build executable target
 
 set(OMEGA_EXE_NAME omega)
-set(OMEGA_EXE_SRCS omega.c)
+set(OMEGA_EXE_SRCS
+    getopt.c
+    getopt.h
+    omega.c
+)
 
 add_executable(${OMEGA_EXE_NAME} ${OMEGA_EXE_SRCS})
 
