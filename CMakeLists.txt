@@ -14,7 +14,7 @@ include(CTest)
 
 # Declare project scope variables
 set(OMEGA_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include")
-set(OMEGA_SOURCE_DIR  "${CMAKE_CURRENT_SOURCE_DIR}/src")
+set(OMEGA_SOURCE_DIR  "${CMAKE_CURRENT_SOURCE_DIR}")
 
 # Generate config files
 configure_file(
