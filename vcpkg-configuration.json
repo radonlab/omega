@@ -6,9 +6,13 @@
   },
   "registries": [
     {
-      "kind": "artifact",
-      "location": "https://github.com/microsoft/vcpkg-ce-catalog/archive/refs/heads/main.zip",
-      "name": "microsoft"
+      "kind": "git",
+      "repository": "https://github.com/depotpkg/vcpkg-registry",
+      "reference": "master",
+      "baseline": "957a50f3b298c93f808ba67c9e50ffafd07bc6f3",
+      "packages": [
+        "clevenshtein"
+      ]
     }
   ]
 }
