@@ -9,7 +9,9 @@ set(OMEGA_EXE_SRCS
 
 add_executable(${OMEGA_EXE_NAME} ${OMEGA_EXE_SRCS})
 
+find_package(clevenshtein REQUIRED)
+
 target_link_libraries(
   ${OMEGA_EXE_NAME} PRIVATE
-  ${OMEGA_LIB_NAME}
+  ${OMEGA_LIB_NAME} clevenshtein
 )

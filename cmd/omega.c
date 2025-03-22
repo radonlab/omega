@@ -9,9 +9,12 @@
 #include <string.h>
 
 #include "getopt.h"
+#include "levenshtein.h"
 
 #define SIMILARITY_FLOOR 7
 #define MAX_PROMPT_COUNT 3
+
+#define OPTIONS_SIZE(options) (sizeof(options) / sizeof((options)[0]) - 1)
 
 typedef struct candidate_flag {
   const char* long_name;
@@ -39,16 +42,26 @@ static GETOPT_LONG_OPTION_T long_options[] = {
         .flag = NULL,
         .val = 'h',
     },
-    {
-        NULL,
-        0,
-        NULL,
-        0,
-    },
+    {NULL, 0, NULL, 0},
 };
 
 static inline void print_help(void) {
   printf("Usage: omega [options] ... [script.omg] [arguments]\n\nOptions:\n");
+}
+
+static void str_trim_flag(const char* flag, size_t* bgn, size_t* end) {
+  const char* pbgn;
+  const char* pend;
+  pbgn = flag;
+  while (*pbgn == '-') {
+    pbgn++;
+  }
+  pend = pbgn;
+  while (*pend != '=' && *pend != '\0') {
+    pend++;
+  }
+  *bgn = pbgn - flag;
+  *end = pend - flag;
 }
 
 static int compare_candidate_flags(const void* p1, const void* p2) {
@@ -64,7 +77,7 @@ static int prepare_candidate_flags(candidate_flag* flag_buf, const char* current
   str_trim_flag(current_flag, &bgn, &end);
   // measure similarity
   int flag_cnt = 0;
-  for (int i = 0; i < CAG_ARRAY_SIZE(long_options); i++) {
+  for (int i = 0; i < OPTIONS_SIZE(long_options); i++) {
     char* long_name = long_options[i].name;
     if (long_name) {
       flag_buf[flag_cnt].long_name = long_name;
@@ -79,7 +92,7 @@ static int prepare_candidate_flags(candidate_flag* flag_buf, const char* current
 }
 
 static void print_candidates(const char* current_flag) {
-  candidate_flag flag_buf[CAG_ARRAY_SIZE(long_options)];
+  candidate_flag flag_buf[OPTIONS_SIZE(long_options)];
   int flag_cnt = prepare_candidate_flags(flag_buf, current_flag);
   // print candidates
   int prompt_cnt = 0;
