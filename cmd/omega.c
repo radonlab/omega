@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "getopt.h"
+#include "pgetopt.h"
 #include "levenshtein.h"
 
 #define SIMILARITY_FLOOR 7
@@ -23,22 +23,22 @@ typedef struct candidate_flag {
 
 static char* short_options = "c:e:vh";
 
-static GETOPT_LONG_OPTION_T long_options[] = {
+static struct option long_options[] = {
     {
         .name = "eval",
-        .has_arg = REQUIRED_ARG,
+        .has_arg = required_argument,
         .flag = NULL,
         .val = 'e',
     },
     {
         .name = "version",
-        .has_arg = NO_ARG,
+        .has_arg = no_argument,
         .flag = NULL,
         .val = 'v',
     },
     {
         .name = "help",
-        .has_arg = NO_ARG,
+        .has_arg = no_argument,
         .flag = NULL,
         .val = 'h',
     },

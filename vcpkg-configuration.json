@@ -9,8 +9,9 @@
       "kind": "git",
       "repository": "https://github.com/depotpkg/vcpkg-registry",
       "reference": "master",
-      "baseline": "957a50f3b298c93f808ba67c9e50ffafd07bc6f3",
+      "baseline": "b05fecc093a59ea145393ff6b78c9a6b94a9efd5",
       "packages": [
+        "pgetopt",
         "clevenshtein"
       ]
     }
