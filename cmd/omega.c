@@ -78,7 +78,7 @@ static int prepare_candidate_flags(candidate_flag* flag_buf, const char* current
   // measure similarity
   int flag_cnt = 0;
   for (int i = 0; i < OPTIONS_SIZE(long_options); i++) {
-    char* long_name = long_options[i].name;
+    const char* long_name = long_options[i].name;
     if (long_name) {
       flag_buf[flag_cnt].long_name = long_name;
       flag_buf[flag_cnt].distance =
