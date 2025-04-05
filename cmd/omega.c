@@ -8,8 +8,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "pgetopt.h"
 #include "levenshtein.h"
+#include "pgetopt.h"
 
 #define SIMILARITY_FLOOR 7
 #define MAX_PROMPT_COUNT 3
@@ -115,6 +115,9 @@ int main(int argc, char* argv[]) {
   int opt_index;
   while ((opt = getopt_long(argc, argv, short_options, long_options, &opt_index)) != -1) {
     switch (opt) {
+    case 'c':
+    case 'e':
+      return EXIT_SUCCESS;
     case 'v':
       printf("v%s\n", OMG_VERSION);
       return EXIT_SUCCESS;

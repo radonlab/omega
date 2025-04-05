@@ -4,6 +4,11 @@ set(OMEGA_MOD_CORE_NAME omega_core)
 set(OMEGA_MOD_CORE_SRCS
     memory.c
     memory.h
+    parser.c
+    parser.h
+    string_buf.c
+    string_buf.h
+    utility.h
 )
 add_library(${OMEGA_MOD_CORE_NAME} OBJECT ${OMEGA_MOD_CORE_SRCS})
 target_include_directories(${OMEGA_MOD_CORE_NAME} PRIVATE ${OMEGA_SOURCE_DIR})

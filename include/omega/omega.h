@@ -29,7 +29,7 @@
 #endif  // OMG_USE_SHARED
 #endif  // OMG_EXPORT
 
-typedef enum {
+typedef enum omega_err_code {
   OMG_OK = 0,
   OMG_INTERN_ERR,
   OMG_FILE_READ_ERR,
