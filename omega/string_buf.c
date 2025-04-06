@@ -54,10 +54,10 @@ static void ensure_capacity(omg_string_buf* buf, size_t min_capacity) {
 
 void omg_string_buf_append(omg_string_buf* buf, const char* str) {
   size_t len = strlen(str);
-  omg_string_buf_appendn(buf, str, len);
+  omg_string_buf_nappend(buf, str, len);
 }
 
-void omg_string_buf_appendn(omg_string_buf* buf, const char* str, size_t len) {
+void omg_string_buf_nappend(omg_string_buf* buf, const char* str, size_t len) {
   ensure_capacity(buf, buf->size + len + 1);
   memcpy(buf->data + buf->size, str, len);
   buf->data[buf->size + len] = '\0';
@@ -66,10 +66,10 @@ void omg_string_buf_appendn(omg_string_buf* buf, const char* str, size_t len) {
 
 void omg_string_buf_prepend(omg_string_buf* buf, const char* str) {
   size_t len = strlen(str);
-  omg_string_buf_prependn(buf, str, len);
+  omg_string_buf_nprepend(buf, str, len);
 }
 
-void omg_string_buf_prependn(omg_string_buf* buf, const char* str, size_t len) {
+void omg_string_buf_nprepend(omg_string_buf* buf, const char* str, size_t len) {
   ensure_capacity(buf, buf->size + len + 1);
   memmove(buf->data + len, buf->data, buf->size + 1);
   memcpy(buf->data, str, len);

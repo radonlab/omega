@@ -20,8 +20,8 @@ omg_string_buf omg_string_buf_clone(const omg_string_buf* src);
 void omg_string_buf_free(omg_string_buf buf);
 
 void omg_string_buf_append(omg_string_buf* buf, const char* str);
-void omg_string_buf_appendn(omg_string_buf* buf, const char* str, size_t len);
+void omg_string_buf_nappend(omg_string_buf* buf, const char* str, size_t len);
 void omg_string_buf_prepend(omg_string_buf* buf, const char* str);
-void omg_string_buf_prependn(omg_string_buf* buf, const char* str, size_t len);
+void omg_string_buf_nprepend(omg_string_buf* buf, const char* str, size_t len);
 
 #endif  // OMEGA_STRING_BUF_H_

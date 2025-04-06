@@ -13,4 +13,6 @@
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
 #endif  // MIN
 
+#define SIZE_OF_ARRAY(arr) (sizeof(arr) / sizeof((arr)[0]))
+
 #endif  // OMEGA_UTILITY_H_
