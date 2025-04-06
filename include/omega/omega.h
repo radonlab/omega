@@ -14,13 +14,13 @@
 #if defined(_WIN32)
 #if defined(OMG_IMPLEMENTATION)
 #define OMG_EXPORT __declspec(dllexport)
-#else   // !defined(OMG_IMPLEMENTATION)
+#else  // !defined(OMG_IMPLEMENTATION)
 #define OMG_EXPORT __declspec(dllimport)
 #endif  // OMG_IMPLEMENTATION
 #else   // !defined(_WIN32)
 #if defined(OMG_IMPLEMENTATION)
 #define OMG_EXPORT __attribute__((visibility("default")))
-#else   // !defined(OMG_IMPLEMENTATION)
+#else  // !defined(OMG_IMPLEMENTATION)
 #define OMG_EXPORT
 #endif  // OMG_IMPLEMENTATION
 #endif  // _WIN32
@@ -35,8 +35,33 @@ typedef enum omega_err_code {
   OMG_FILE_READ_ERR,
 } omega_err_code;
 
+/**
+ * Compiles a source file into an intermediate representation format.
+ *
+ * @param src  Path to the source file to be compiled.
+ * @param out  Output path for the compiled artifact.
+ *
+ * @return  Execution result
+ */
 OMG_EXPORT omega_err_code omega_compile_script(const char* src, const char* out);
 
+/**
+ * Executes a pre-compiled code entry point.
+ *
+ * @param src_entry  Name/path of the compiled code entry point.
+ *
+ * @return  Execution result
+ */
 OMG_EXPORT omega_err_code omega_execute(const char* src_entry);
+
+/**
+ * Compiles and executes source code immediately.
+ *
+ * @param src_content  Content of the source code.
+ * @param src_entry    Entry point specification for execution context.
+ *
+ * @return  Execution result
+ */
+OMG_EXPORT omega_err_code omega_execute_string(const char* src_content, const char* src_entry);
 
 #endif  // OMEGA_OMEGA_H_
