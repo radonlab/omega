@@ -2,6 +2,9 @@
 
 set(OMEGA_MOD_CORE_NAME omega_core)
 set(OMEGA_MOD_CORE_SRCS
+    engine.c
+    io_util.c
+    io_util.h
     memory.c
     memory.h
     parser.c

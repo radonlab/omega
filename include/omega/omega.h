@@ -32,7 +32,7 @@
 typedef enum omega_err_code {
   OMG_OK = 0,
   OMG_INTERN_ERR,
-  OMG_FILE_READ_ERR,
+  OMG_FILE_IO_ERR,
 } omega_err_code;
 
 /**
@@ -41,7 +41,7 @@ typedef enum omega_err_code {
  * @param src  Path to the source file to be compiled.
  * @param out  Output path for the compiled artifact.
  *
- * @return  Execution result
+ * @return  Execution result of @ref omega_err_code
  */
 OMG_EXPORT omega_err_code omega_compile_script(const char* src, const char* out);
 
@@ -50,7 +50,7 @@ OMG_EXPORT omega_err_code omega_compile_script(const char* src, const char* out)
  *
  * @param src_entry  Name/path of the compiled code entry point.
  *
- * @return  Execution result
+ * @return  Execution result of @ref omega_err_code
  */
 OMG_EXPORT omega_err_code omega_execute(const char* src_entry);
 
@@ -60,7 +60,7 @@ OMG_EXPORT omega_err_code omega_execute(const char* src_entry);
  * @param src_content  Content of the source code.
  * @param src_entry    Entry point specification for execution context.
  *
- * @return  Execution result
+ * @return  Execution result of @ref omega_err_code
  */
 OMG_EXPORT omega_err_code omega_execute_string(const char* src_content, const char* src_entry);
 
