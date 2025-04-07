@@ -18,7 +18,7 @@ bool omg_io_util_read_to_string_buf(const char* pth, omg_string_buf* buf) {
   size_t n;
   do {
     n = fread(tmp, sizeof(char), BUFSIZ, file);
-    omg_string_buf_appendn(buf, tmp, n);
+    omg_string_buf_nappend(buf, tmp, n);
   } while (n > 0);
   omg_free(tmp);
   fclose(file);

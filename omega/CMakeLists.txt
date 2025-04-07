@@ -1,7 +1,6 @@
-# Declare submodules
+# Declare modules
 
-set(OMEGA_MOD_CORE_NAME omega_core)
-set(OMEGA_MOD_CORE_SRCS
+set(OMEGA_LIB_SRCS
     engine.c
     io_util.c
     io_util.h
@@ -13,8 +12,6 @@ set(OMEGA_MOD_CORE_SRCS
     string_buf.h
     utility.h
 )
-add_library(${OMEGA_MOD_CORE_NAME} OBJECT ${OMEGA_MOD_CORE_SRCS})
-target_include_directories(${OMEGA_MOD_CORE_NAME} PRIVATE ${OMEGA_SOURCE_DIR})
 
 # Build library target
 
@@ -29,10 +26,14 @@ endif()
 # Config library
 add_library(
   ${OMEGA_LIB_NAME} ${OMEGA_LIB_TYPE}
-  $<TARGET_OBJECTS:omega_core>
+  ${OMEGA_LIB_SRCS}
 )
 
-target_include_directories(${OMEGA_LIB_NAME} PUBLIC ${OMEGA_INCLUDE_DIR})
+target_include_directories(
+  ${OMEGA_LIB_NAME}
+  PRIVATE ${OMEGA_SOURCE_DIR}
+  PUBLIC ${OMEGA_INCLUDE_DIR}
+)
 
 set_target_properties(${OMEGA_LIB_NAME} PROPERTIES VERSION ${PROJECT_VERSION})
 set_target_properties(${OMEGA_LIB_NAME} PROPERTIES DEFINE_SYMBOL OMG_IMPLEMENTATION)
