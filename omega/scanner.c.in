@@ -1,0 +1,15 @@
+// Copyright (C) 2020, Skyler. All rights reserved.
+// Use of this source code is governed by the MIT license that can be
+// found in the LICENSE file.
+
+#include "omega/scanner.h"
+
+void omg_scanner_init(omg_scanner* scanner) {
+}
+
+omg_token omg_scanner_scan(omg_scanner* scanner) {
+  /*!re2c
+      re2c:define:YYCTYPE = char;
+
+   */
+}
