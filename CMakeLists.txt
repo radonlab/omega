@@ -8,9 +8,8 @@ endif()
 set(CMAKE_C_STANDARD 99)
 
 # Build Options
-option(OMEGA_BUILD_TOOLS "Build PEG parser generator" OFF)
-
-include(CTest)
+option(OMEGA_BUILD_TOOLS "Build omega project tools" OFF)
+option(OMEGA_BUILD_TESTS "Build omega project tests" OFF)
 
 # Declare project scope variables
 set(OMEGA_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include")
@@ -29,4 +28,8 @@ add_subdirectory(cmd)
 
 if(OMEGA_BUILD_TOOLS)
   add_subdirectory(tools)
+endif()
+
+if(OMEGA_BUILD_TESTS)
+  add_subdirectory(tests)
 endif()

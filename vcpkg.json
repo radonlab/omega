@@ -1,6 +1,7 @@
 {
   "dependencies": [
     "pgetopt",
-    "clevenshtein"
+    "clevenshtein",
+    "gtest"
   ]
 }
