@@ -8,6 +8,8 @@ set(OMEGA_LIB_SRCS
     memory.h
     parser.c
     parser.h
+    scanner.c
+    scanner.h
     string_buf.c
     string_buf.h
     utility.h

@@ -11,4 +11,6 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(re2c)
 
+set_target_properties(re2c PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/tools)
+
 add_executable(lemon lemon.c)
