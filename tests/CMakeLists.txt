@@ -1,5 +1,6 @@
 # Build tests
 
+enable_language(CXX)
 enable_testing()
 
 find_package(GTest REQUIRED)
