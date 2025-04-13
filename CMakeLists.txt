@@ -31,5 +31,6 @@ if(OMEGA_BUILD_TOOLS)
 endif()
 
 if(OMEGA_BUILD_TESTS)
+  enable_testing()
   add_subdirectory(tests)
 endif()
