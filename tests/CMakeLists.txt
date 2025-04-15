@@ -9,6 +9,7 @@ set(OMEGA_LIB_DIR "${OMEGA_SOURCE_DIR}/omega")
 set(OMEGA_TEST_SRCS
     test_aux.h
     ${OMEGA_LIB_DIR}/io_util_test.cpp
+    ${OMEGA_LIB_DIR}/scanner_test.cpp
 )
 
 add_executable(test_zero ${OMEGA_TEST_SRCS})

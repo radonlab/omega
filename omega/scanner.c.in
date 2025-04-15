@@ -4,12 +4,54 @@
 
 #include "omega/scanner.h"
 
+#include "omega/token.h"
+
 void omg_scanner_init(omg_scanner* scanner) {
+  scanner->cur_pos = 0;
+  scanner->cur_line = 1;
+  scanner->cur_col = 1;
 }
 
-omg_token omg_scanner_scan(omg_scanner* scanner) {
-  /*!re2c
-      re2c:define:YYCTYPE = char;
+static omg_token make_token(omg_scanner* scanner, int token_type) {
+  omg_token token = {
+      .type = token_type,
+      .pos = scanner->cur_pos,
+      .lineno = scanner->cur_line,
+      .colno = scanner->cur_col,
+  };
+  return token;
+}
 
-   */
+omg_token omg_scanner_scan(omg_scanner* scanner, const char* str) {
+  for (;;) {
+    const char* cursor = str + scanner->cur_pos;
+    const char* marker;
+/*!re2c
+    re2c:yyfill:enable = 0;
+    re2c:define:YYCTYPE = char;
+    re2c:define:YYCURSOR = cursor;
+    re2c:define:YYMARKER = marker;
+
+    newline = "\n";
+    whitespace = [ \t\v\r]+;
+
+    newline {
+      omg_token token = make_token(scanner, NEWLINE);
+      scanner->cur_line++;
+      scanner->cur_col = 1;
+      return token;
+    }
+
+    whitespace {
+      continue;
+    }
+
+    "begin" {
+      return make_token(scanner, KW_BEGIN);
+    }
+    "end" {
+      return make_token(scanner, KW_END);
+    }
+ */
+  }
 }
