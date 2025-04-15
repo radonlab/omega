@@ -11,8 +11,8 @@
       "reference": "master",
       "baseline": "b05fecc093a59ea145393ff6b78c9a6b94a9efd5",
       "packages": [
-        "pgetopt",
-        "clevenshtein"
+        "clevenshtein",
+        "pgetopt"
       ]
     }
   ]

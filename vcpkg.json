@@ -1,8 +1,15 @@
 {
   "dependencies": [
-    "pgetopt",
     "clevenshtein",
-    "gtest",
-    "dbg-macro"
-  ]
+    "pgetopt"
+  ],
+  "features": {
+    "dev": {
+      "description": "Development dependencies",
+      "dependencies": [
+        "dbg-macro",
+        "gtest"
+      ]
+    }
+  }
 }
