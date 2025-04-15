@@ -2,6 +2,7 @@
   "dependencies": [
     "pgetopt",
     "clevenshtein",
-    "gtest"
+    "gtest",
+    "dbg-macro"
   ]
 }

@@ -5,6 +5,8 @@
 #ifndef TESTS_TEST_AUX_H_
 #define TESTS_TEST_AUX_H_
 
+#include <dbg-macro/dbg.h>
+
 #if defined(__cplusplus)
 #define __BEGIN_DECLS extern "C" {
 #define __END_DECLS }

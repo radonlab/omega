@@ -3,6 +3,7 @@
 enable_language(CXX)
 
 find_package(GTest REQUIRED)
+find_path(DBG_MACRO_INCLUDE_DIRS "dbg-macro/dbg.h")
 
 set(OMEGA_LIB_DIR "${OMEGA_SOURCE_DIR}/omega")
 
@@ -21,7 +22,7 @@ target_link_libraries(
 
 target_include_directories(
   test_zero
-  PRIVATE ${OMEGA_SOURCE_DIR}
+  PRIVATE ${OMEGA_SOURCE_DIR} ${DBG_MACRO_INCLUDE_DIRS}
 )
 
 target_compile_definitions(test_zero PRIVATE OMG_TEST_DATA_PATH="${CMAKE_CURRENT_SOURCE_DIR}")
