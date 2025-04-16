@@ -4,8 +4,6 @@ __BEGIN_DECLS
 #include "omega/io_util.h"
 __END_DECLS
 
-#include <gtest/gtest.h>
-
 #ifndef OMG_TEST_DATA_PATH
 #define OMG_TEST_DATA_PATH "__undefined__"
 #endif  // OMG_TEST_DATA_PATH
