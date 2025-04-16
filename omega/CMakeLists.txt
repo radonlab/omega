@@ -27,13 +27,9 @@ if(BUILD_SHARED_LIBS)
 endif()
 
 # Config library
-add_library(
-  ${OMEGA_LIB_NAME} ${OMEGA_LIB_TYPE}
-  ${OMEGA_LIB_SRCS}
-)
+add_library(${OMEGA_LIB_NAME} ${OMEGA_LIB_TYPE} ${OMEGA_LIB_SRCS})
 
-target_include_directories(
-  ${OMEGA_LIB_NAME}
+target_include_directories(${OMEGA_LIB_NAME}
   PRIVATE ${OMEGA_SOURCE_DIR}
   PUBLIC ${OMEGA_INCLUDE_DIR}
 )
