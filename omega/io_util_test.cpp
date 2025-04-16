@@ -1,4 +1,4 @@
-#include "tests/test_aux.h"
+#include "test_aux.h"
 
 __BEGIN_DECLS
 #include "omega/io_util.h"
