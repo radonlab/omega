@@ -5,8 +5,9 @@
 #ifndef OMEGA_TOKEN_H_
 #define OMEGA_TOKEN_H_
 
-#define NEWLINE  10
-#define KW_BEGIN 100
-#define KW_END   101
+#define TK_EOF     0
+#define TK_NEWLINE 10
+#define KW_BEGIN   100
+#define KW_END     101
 
 #endif  // OMEGA_TOKEN_H_

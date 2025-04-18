@@ -6,6 +6,8 @@
 #define OMEGA_SCANNER_H_
 
 typedef struct omg_scanner {
+  const char* cursor;
+  const char* marker;
   int cur_pos;
   int cur_line;
   int cur_col;
@@ -18,7 +20,7 @@ typedef struct omg_token {
   int colno;
 } omg_token;
 
-void omg_scanner_init(omg_scanner* scanner);
-omg_token omg_scanner_scan(omg_scanner* scanner, const char* str);
+void omg_scanner_init(omg_scanner* scanner, const char* str);
+omg_token omg_scanner_scan(omg_scanner* scanner);
 
 #endif  // OMEGA_SCANNER_H_

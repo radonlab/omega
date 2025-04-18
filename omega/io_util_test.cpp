@@ -8,7 +8,7 @@ __END_DECLS
 #define OMG_TEST_DATA_PATH "__undefined__"
 #endif  // OMG_TEST_DATA_PATH
 
-TEST(BasicTest, io_util_read) {
+TEST(CommonTest, io_util_read_file) {
   const char* input = OMG_TEST_DATA_PATH "/input.txt";
   omg_string_buf buf = omg_string_buf_new();
   omg_io_util_read_to_string_buf(input, &buf);
