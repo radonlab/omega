@@ -12,6 +12,8 @@ set(OMEGA_LIB_SRCS
     scanner.h
     string_buf.c
     string_buf.h
+    string_view.c
+    string_view.h
     token.h
     utility.h
 )
