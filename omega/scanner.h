@@ -6,9 +6,9 @@
 #define OMEGA_SCANNER_H_
 
 typedef struct omg_scanner {
+  const char* start;
   const char* cursor;
   const char* marker;
-  int cur_pos;
   int cur_line;
   int cur_col;
 } omg_scanner;
@@ -16,6 +16,7 @@ typedef struct omg_scanner {
 typedef struct omg_token {
   int type;
   int pos;
+  int end;
   int lineno;
   int colno;
 } omg_token;
