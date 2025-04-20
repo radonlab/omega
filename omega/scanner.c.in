@@ -4,14 +4,21 @@
 
 #include "omega/scanner.h"
 
+#include <stddef.h>
+
 #include "omega/token.h"
 
 void omg_scanner_init(omg_scanner* scanner, const char* str) {
   scanner->start = str;
   scanner->cursor = scanner->start;
-  scanner->marker = NULL; // No need to initialize
+  scanner->marker = NULL;  // No need to initialize
   scanner->cur_line = 1;
   scanner->cur_col = 1;
+}
+
+static inline void update_location(omg_scanner* scanner, const char* token) {
+  int span = (int)(scanner->cursor - token);
+  scanner->cur_col += span;
 }
 
 static inline omg_token make_token(omg_scanner* scanner, const char* token, int token_type) {
@@ -22,6 +29,7 @@ static inline omg_token make_token(omg_scanner* scanner, const char* token, int 
       .lineno = scanner->cur_line,
       .colno = scanner->cur_col,
   };
+  update_location(scanner, token);
   return result;
 }
 
@@ -42,6 +50,9 @@ omg_token omg_scanner_scan(omg_scanner* scanner) {
     newline = "\n";
     whitespace = [ \t\v\r]+;
 
+    * {
+    }
+
     eof {
       return make_token(scanner, token, TK_EOF);
     }
@@ -54,6 +65,7 @@ omg_token omg_scanner_scan(omg_scanner* scanner) {
     }
 
     whitespace {
+      update_location(scanner, token);
       continue;
     }
 
