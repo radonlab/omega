@@ -5,9 +5,30 @@
 #ifndef OMEGA_TOKEN_H_
 #define OMEGA_TOKEN_H_
 
-#define TK_EOF     0
+#define TK_EOF 0
 #define TK_NEWLINE 10
-#define KW_BEGIN   100
-#define KW_END     101
+
+#define KW_PACKAGE 100
+#define KW_IMPORT 101
+#define KW_BEGIN 102
+#define KW_END 103
+#define KW_VAR 104
+#define KW_CONST 105
+#define KW_TYPE 106
+#define KW_STRUCT 107
+#define KW_FUNC 108
+#define KW_RETURN 109
+#define KW_FOR 110
+#define KW_BREAK 111
+#define KW_CONTINUE 112
+#define KW_IF 113
+#define KW_ELSE 114
+#define KW_SWITCH 115
+#define KW_CASE 116
+#define KW_DEFAULT 117
+
+#define OP_ASSIGN 201
+#define OP_EQ 202
+#define OP_NE 203
 
 #endif  // OMEGA_TOKEN_H_
