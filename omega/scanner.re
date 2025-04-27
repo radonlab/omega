@@ -49,6 +49,10 @@ omg_token omg_scanner_scan(omg_scanner* scanner) {
     eof = "\x00";
     newline = "\n";
     whitespace = [ \t\v\r]+;
+    comment = "#" [^\n\x00]*;
+    char =  [^\x00-\x7F]|[a-zA-Z_];
+    digit = [0-9];
+    identifier = char (char | digit)*;
 
     * {
     }
@@ -65,6 +69,11 @@ omg_token omg_scanner_scan(omg_scanner* scanner) {
     }
 
     whitespace {
+      update_location(scanner, token);
+      continue;
+    }
+
+    comment {
       update_location(scanner, token);
       continue;
     }
@@ -124,6 +133,31 @@ omg_token omg_scanner_scan(omg_scanner* scanner) {
     }
     "default" {
       return make_token(scanner, token, KW_DEFAULT);
+    }
+
+    identifier {
+      return make_token(scanner, token, TK_IDENTIFIER);
+    }
+
+    // Separator
+
+    "(" {
+      return make_token(scanner, token, SP_LPAREN);
+    }
+    ")" {
+      return make_token(scanner, token, SP_RPAREN);
+    }
+    "[" {
+      return make_token(scanner, token, SP_LBRACKET);
+    }
+    "]" {
+      return make_token(scanner, token, SP_RBRACKET);
+    }
+    "{" {
+      return make_token(scanner, token, SP_LBRACE);
+    }
+    "}" {
+      return make_token(scanner, token, SP_RBRACE);
     }
 
     "=" {

@@ -1,3 +1,5 @@
+#include <cstring>
+
 #include "test_aux.h"
 
 __BEGIN_DECLS
@@ -5,8 +7,11 @@ __BEGIN_DECLS
 #include "omega/token.h"
 __END_DECLS
 
-TEST(ScannerTest, scanner_scan_token) {
-  const char* str = "begin\n  \nend\n";
+TEST(ScannerTest, scanner_scan_basic_tokens) {
+  const char* str =
+      "begin\n"
+      "  \n"
+      "end\n";
   omg_token token;
   omg_scanner scanner;
   omg_scanner_init(&scanner, str);
@@ -16,6 +21,7 @@ TEST(ScannerTest, scanner_scan_token) {
   EXPECT_EQ(token.end, 5);
   EXPECT_EQ(token.lineno, 1);
   EXPECT_EQ(token.colno, 1);
+  EXPECT_TRUE(memcmp(str + token.pos, "begin", strlen("begin")) == 0);
   token = omg_scanner_scan(&scanner);
   EXPECT_EQ(token.type, TK_NEWLINE);
   EXPECT_EQ(token.pos, 5);
@@ -34,10 +40,60 @@ TEST(ScannerTest, scanner_scan_token) {
   EXPECT_EQ(token.end, 12);
   EXPECT_EQ(token.lineno, 3);
   EXPECT_EQ(token.colno, 1);
+  EXPECT_TRUE(memcmp(str + token.pos, "end", strlen("end")) == 0);
   token = omg_scanner_scan(&scanner);
   EXPECT_EQ(token.type, TK_NEWLINE);
   EXPECT_EQ(token.pos, 12);
   EXPECT_EQ(token.end, 13);
+  EXPECT_EQ(token.lineno, 3);
+  EXPECT_EQ(token.colno, 4);
+  token = omg_scanner_scan(&scanner);
+  EXPECT_EQ(token.type, TK_EOF);
+}
+
+TEST(ScannerTest, scanner_scan_comments) {
+  const char* str =
+      "\"\"\" multiple-line\n"
+      "comment\n"
+      "\"\"\"\n"
+      "func test()\n"
+      "  # single-line\n"
+      "end\n";
+  omg_token token;
+  omg_scanner scanner;
+  omg_scanner_init(&scanner, str);
+  token = omg_scanner_scan(&scanner);
+  EXPECT_EQ(token.type, STRING);
+  token = omg_scanner_scan(&scanner);
+  EXPECT_EQ(token.type, KW_FUNC);
+  EXPECT_EQ(token.lineno, 1);
+  EXPECT_EQ(token.colno, 1);
+  token = omg_scanner_scan(&scanner);
+  EXPECT_EQ(token.type, TK_IDENTIFIER);
+  EXPECT_EQ(token.lineno, 1);
+  EXPECT_EQ(token.colno, 6);
+  token = omg_scanner_scan(&scanner);
+  EXPECT_EQ(token.type, SP_LPAREN);
+  EXPECT_EQ(token.lineno, 1);
+  EXPECT_EQ(token.colno, 10);
+  token = omg_scanner_scan(&scanner);
+  EXPECT_EQ(token.type, SP_RPAREN);
+  EXPECT_EQ(token.lineno, 1);
+  EXPECT_EQ(token.colno, 11);
+  token = omg_scanner_scan(&scanner);
+  EXPECT_EQ(token.type, TK_NEWLINE);
+  EXPECT_EQ(token.lineno, 1);
+  EXPECT_EQ(token.colno, 12);
+  token = omg_scanner_scan(&scanner);
+  EXPECT_EQ(token.type, TK_NEWLINE);
+  EXPECT_EQ(token.lineno, 2);
+  EXPECT_EQ(token.colno, 16);
+  token = omg_scanner_scan(&scanner);
+  EXPECT_EQ(token.type, KW_END);
+  EXPECT_EQ(token.lineno, 3);
+  EXPECT_EQ(token.colno, 1);
+  token = omg_scanner_scan(&scanner);
+  EXPECT_EQ(token.type, TK_NEWLINE);
   EXPECT_EQ(token.lineno, 3);
   EXPECT_EQ(token.colno, 4);
   token = omg_scanner_scan(&scanner);

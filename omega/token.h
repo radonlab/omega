@@ -7,6 +7,7 @@
 
 #define TK_EOF 0
 #define TK_NEWLINE 10
+#define TK_IDENTIFIER 11
 
 #define KW_PACKAGE 100
 #define KW_IMPORT 101
@@ -27,8 +28,15 @@
 #define KW_CASE 116
 #define KW_DEFAULT 117
 
-#define OP_ASSIGN 201
-#define OP_EQ 202
-#define OP_NE 203
+#define SP_LPAREN 200
+#define SP_RPAREN 201
+#define SP_LBRACKET 202
+#define SP_RBRACKET 203
+#define SP_LBRACE 204
+#define SP_RBRACE 205
+
+#define OP_ASSIGN 301
+#define OP_EQ 302
+#define OP_NE 303
 
 #endif  // OMEGA_TOKEN_H_
