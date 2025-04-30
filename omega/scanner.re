@@ -80,85 +80,35 @@ omg_token omg_scanner_scan(omg_scanner* scanner) {
 
     // Keywords
 
-    "package" {
-      return make_token(scanner, token, KW_PACKAGE);
-    }
-    "import" {
-      return make_token(scanner, token, KW_IMPORT);
-    }
-    "begin" {
-      return make_token(scanner, token, KW_BEGIN);
-    }
-    "end" {
-      return make_token(scanner, token, KW_END);
-    }
-    "var" {
-      return make_token(scanner, token, KW_VAR);
-    }
-    "const" {
-      return make_token(scanner, token, KW_CONST);
-    }
-    "type" {
-      return make_token(scanner, token, KW_TYPE);
-    }
-    "struct" {
-      return make_token(scanner, token, KW_STRUCT);
-    }
-    "func" {
-      return make_token(scanner, token, KW_FUNC);
-    }
-    "return" {
-      return make_token(scanner, token, KW_RETURN);
-    }
-    "for" {
-      return make_token(scanner, token, KW_FOR);
-    }
-    "break" {
-      return make_token(scanner, token, KW_BREAK);
-    }
-    "continue" {
-      return make_token(scanner, token, KW_CONTINUE);
-    }
-    "if" {
-      return make_token(scanner, token, KW_IF);
-    }
-    "else" {
-      return make_token(scanner, token, KW_ELSE);
-    }
-    "switch" {
-      return make_token(scanner, token, KW_SWITCH);
-    }
-    "case" {
-      return make_token(scanner, token, KW_CASE);
-    }
-    "default" {
-      return make_token(scanner, token, KW_DEFAULT);
-    }
+    "package"  { return make_token(scanner, token, KW_PACKAGE); }
+    "import"   { return make_token(scanner, token, KW_IMPORT); }
+    "begin"    { return make_token(scanner, token, KW_BEGIN); }
+    "end"      { return make_token(scanner, token, KW_END); }
+    "var"      { return make_token(scanner, token, KW_VAR); }
+    "const"    { return make_token(scanner, token, KW_CONST); }
+    "type"     { return make_token(scanner, token, KW_TYPE); }
+    "struct"   { return make_token(scanner, token, KW_STRUCT); }
+    "func"     { return make_token(scanner, token, KW_FUNC); }
+    "return"   { return make_token(scanner, token, KW_RETURN); }
+    "for"      { return make_token(scanner, token, KW_FOR); }
+    "break"    { return make_token(scanner, token, KW_BREAK); }
+    "continue" { return make_token(scanner, token, KW_CONTINUE); }
+    "if"       { return make_token(scanner, token, KW_IF); }
+    "else"     { return make_token(scanner, token, KW_ELSE); }
+    "switch"   { return make_token(scanner, token, KW_SWITCH); }
+    "case"     { return make_token(scanner, token, KW_CASE); }
+    "default"  { return make_token(scanner, token, KW_DEFAULT); }
 
-    identifier {
-      return make_token(scanner, token, TK_IDENTIFIER);
-    }
+    identifier { return make_token(scanner, token, TK_IDENTIFIER); }
 
     // Separator
 
-    "(" {
-      return make_token(scanner, token, SP_LPAREN);
-    }
-    ")" {
-      return make_token(scanner, token, SP_RPAREN);
-    }
-    "[" {
-      return make_token(scanner, token, SP_LBRACKET);
-    }
-    "]" {
-      return make_token(scanner, token, SP_RBRACKET);
-    }
-    "{" {
-      return make_token(scanner, token, SP_LBRACE);
-    }
-    "}" {
-      return make_token(scanner, token, SP_RBRACE);
-    }
+    "(" { return make_token(scanner, token, SP_LPAREN); }
+    ")" { return make_token(scanner, token, SP_RPAREN); }
+    "[" { return make_token(scanner, token, SP_LBRACKET); }
+    "]" { return make_token(scanner, token, SP_RBRACKET); }
+    "{" { return make_token(scanner, token, SP_LBRACE); }
+    "}" { return make_token(scanner, token, SP_RBRACE); }
 
     "=" {
       return make_token(scanner, token, OP_ASSIGN);
