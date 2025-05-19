@@ -11,7 +11,7 @@ TEST(ScannerTest, scanner_scan_basic_tokens) {
   const char* str =
       "begin\n"
       "  \n"
-      "end\n";
+      "end";
   omg_token token;
   omg_scanner scanner;
   omg_scanner_init(&scanner, str);
@@ -42,20 +42,14 @@ TEST(ScannerTest, scanner_scan_basic_tokens) {
   EXPECT_EQ(token.colno, 1);
   EXPECT_TRUE(memcmp(str + token.pos, "end", strlen("end")) == 0);
   token = omg_scanner_scan(&scanner);
-  EXPECT_EQ(token.type, TK_NEWLINE);
-  EXPECT_EQ(token.pos, 12);
-  EXPECT_EQ(token.end, 13);
-  EXPECT_EQ(token.lineno, 3);
-  EXPECT_EQ(token.colno, 4);
-  token = omg_scanner_scan(&scanner);
   EXPECT_EQ(token.type, TK_EOF);
 }
 
 TEST(ScannerTest, scanner_scan_func_definition) {
   const char* str =
       "func test()\n"
-      "  # single-line\n"
-      "end\n";
+      "  # single-line comment\n"
+      "end";
   omg_token token;
   omg_scanner scanner;
   omg_scanner_init(&scanner, str);
@@ -82,15 +76,26 @@ TEST(ScannerTest, scanner_scan_func_definition) {
   token = omg_scanner_scan(&scanner);
   EXPECT_EQ(token.type, TK_NEWLINE);
   EXPECT_EQ(token.lineno, 2);
-  EXPECT_EQ(token.colno, 16);
+  EXPECT_EQ(token.colno, 24);
   token = omg_scanner_scan(&scanner);
   EXPECT_EQ(token.type, KW_END);
   EXPECT_EQ(token.lineno, 3);
   EXPECT_EQ(token.colno, 1);
   token = omg_scanner_scan(&scanner);
-  EXPECT_EQ(token.type, TK_NEWLINE);
-  EXPECT_EQ(token.lineno, 3);
-  EXPECT_EQ(token.colno, 4);
-  token = omg_scanner_scan(&scanner);
   EXPECT_EQ(token.type, TK_EOF);
+}
+
+TEST(ScannerTest, scanner_scan_strings) {
+  const char* str =
+      "'''\n"
+      "multiple-line string\n"
+      "'''\n"
+      "'single-line string'";
+  omg_token token;
+  omg_scanner scanner;
+  omg_scanner_init(&scanner, str);
+  token = omg_scanner_scan(&scanner);
+  EXPECT_EQ(token.type, LT_LONG_STRING);
+  EXPECT_EQ(token.lineno, 1);
+  EXPECT_EQ(token.colno, 1);
 }
