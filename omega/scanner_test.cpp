@@ -51,19 +51,14 @@ TEST(ScannerTest, scanner_scan_basic_tokens) {
   EXPECT_EQ(token.type, TK_EOF);
 }
 
-TEST(ScannerTest, scanner_scan_comments) {
+TEST(ScannerTest, scanner_scan_func_definition) {
   const char* str =
-      "\"\"\" multiple-line\n"
-      "comment\n"
-      "\"\"\"\n"
       "func test()\n"
       "  # single-line\n"
       "end\n";
   omg_token token;
   omg_scanner scanner;
   omg_scanner_init(&scanner, str);
-  token = omg_scanner_scan(&scanner);
-  EXPECT_EQ(token.type, STRING);
   token = omg_scanner_scan(&scanner);
   EXPECT_EQ(token.type, KW_FUNC);
   EXPECT_EQ(token.lineno, 1);

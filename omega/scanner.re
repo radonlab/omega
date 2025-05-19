@@ -53,6 +53,20 @@ omg_token omg_scanner_scan(omg_scanner* scanner) {
     char =  [^\x00-\x7F]|[a-zA-Z_];
     digit = [0-9];
     identifier = char (char | digit)*;
+    squote_string = "'" ("\\"[^\x00] | [^'\x00\n\\])* "'";
+    dquote_string = '"' ('\\'[^\x00] | [^"\x00\n\\])* '"';
+    squote_long_string =
+        "'''" ( "\\"[^\x00]
+            | ("'" | "'" "\\"+ "'" | "'" "\\"+) [^'\x00\\]
+            | ("''" | "''" "\\"+) [^'\x00\\]
+            | [^'\x00\\] )*
+        "'''";
+    dquote_long_string =
+        '"""' ( '\\'[^\x00]
+            | ('"' | '"' '\\'+ '"' | '"' '\\'+) [^"\x00\\]
+            | ('""' | '""' '\\'+) [^"\x00\\]
+            | [^"\x00\\] )*
+        '"""';
 
     * {
     }
@@ -77,6 +91,13 @@ omg_token omg_scanner_scan(omg_scanner* scanner) {
       update_location(scanner, token);
       continue;
     }
+
+    // Literal
+
+    squote_string      { return make_token(scanner, token, LT_STRING); }
+    dquote_string      { return make_token(scanner, token, LT_STRING); }
+    squote_long_string { return make_token(scanner, token, LT_LONG_STRING); }
+    dquote_long_string { return make_token(scanner, token, LT_LONG_STRING); }
 
     // Keywords
 

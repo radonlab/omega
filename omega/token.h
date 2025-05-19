@@ -9,6 +9,9 @@
 #define TK_NEWLINE 10
 #define TK_IDENTIFIER 11
 
+#define LT_STRING 20
+#define LT_LONG_STRING 21
+
 #define KW_PACKAGE 100
 #define KW_IMPORT 101
 #define KW_BEGIN 102
