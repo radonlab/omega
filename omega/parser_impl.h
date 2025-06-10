@@ -1,0 +1,14 @@
+#define TK_EOF                              1
+#define TK_NEWLINE                          2
+#define TK_COMMA                            3
+#define TK_SEMI                             4
+#define TK_L_PAREN                          5
+#define TK_R_PAREN                          6
+#define TK_L_BRACKET                        7
+#define TK_R_BRACKET                        8
+#define TK_L_BRACE                          9
+#define TK_R_BRACE                         10
+#define TK_STRING_LIT                      11
+#define TK_LONG_STRING_LIT                 12
+#define TK_IDENTIFIER                      13
+#define TK_FUNC                            14

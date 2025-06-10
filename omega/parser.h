@@ -10,5 +10,6 @@ typedef struct omg_parser {
 
 void omg_parser_init(omg_parser* parser);
 void omg_parser_free(omg_parser* parser);
+void omg_parser_parse(omg_parser* parser, const char* str);
 
 #endif  // OMEGA_PARSER_H_
