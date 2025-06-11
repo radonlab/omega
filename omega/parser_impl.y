@@ -20,9 +20,24 @@
     L_BRACE
     R_BRACE
     STRING_LIT
-    LONG_STRING_LIT
+    RAW_STRING_LIT
     IDENTIFIER
+    PACKAGE
+    IMPORT
+    VAR
+    CONST
+    TYPE
+    STRUCT
     FUNC
+    RETURN
+    FOR
+    BREAK
+    CONTINUE
+    IF
+    ELSE
+    SWITCH
+    CASE
+    DEFAULT
     .
 
 %start_symbol compile_unit

@@ -6,7 +6,7 @@
 
 #include <stddef.h>
 
-#include "omega/token.h"
+#include "omega/parser_impl.h"
 
 void omg_scanner_init(omg_scanner* scanner, const char* str) {
   scanner->start = str;
@@ -33,11 +33,12 @@ static inline omg_token make_token(omg_scanner* scanner, const char* token, int 
   return result;
 }
 
+#define TK(type) make_token(scanner, token, TK_##type)
+
 /*!re2c
   re2c:yyfill:enable = 0;
   re2c:define:YYCTYPE = char;
  */
-
 omg_token omg_scanner_scan(omg_scanner* scanner) {
   const char* token;
   for (;;) {
@@ -72,11 +73,11 @@ omg_token omg_scanner_scan(omg_scanner* scanner) {
     }
 
     eof {
-      return make_token(scanner, token, TK_EOF);
+      return TK(EOF);
     }
 
     newline {
-      omg_token result = make_token(scanner, token, TK_NEWLINE);
+      omg_token result = TK(NEWLINE);
       scanner->cur_line++;
       scanner->cur_col = 1;
       return result;
@@ -94,42 +95,40 @@ omg_token omg_scanner_scan(omg_scanner* scanner) {
 
     // Literal
 
-    squote_string      { return make_token(scanner, token, LT_STRING); }
-    dquote_string      { return make_token(scanner, token, LT_STRING); }
-    squote_long_string { return make_token(scanner, token, LT_LONG_STRING); }
-    dquote_long_string { return make_token(scanner, token, LT_LONG_STRING); }
+    squote_string      { return TK(STRING_LIT); }
+    dquote_string      { return TK(STRING_LIT); }
+    squote_long_string { return TK(RAW_STRING_LIT); }
+    dquote_long_string { return TK(RAW_STRING_LIT); }
 
     // Keywords
 
-    "package"  { return make_token(scanner, token, KW_PACKAGE); }
-    "import"   { return make_token(scanner, token, KW_IMPORT); }
-    "begin"    { return make_token(scanner, token, KW_BEGIN); }
-    "end"      { return make_token(scanner, token, KW_END); }
-    "var"      { return make_token(scanner, token, KW_VAR); }
-    "const"    { return make_token(scanner, token, KW_CONST); }
-    "type"     { return make_token(scanner, token, KW_TYPE); }
-    "struct"   { return make_token(scanner, token, KW_STRUCT); }
-    "func"     { return make_token(scanner, token, KW_FUNC); }
-    "return"   { return make_token(scanner, token, KW_RETURN); }
-    "for"      { return make_token(scanner, token, KW_FOR); }
-    "break"    { return make_token(scanner, token, KW_BREAK); }
-    "continue" { return make_token(scanner, token, KW_CONTINUE); }
-    "if"       { return make_token(scanner, token, KW_IF); }
-    "else"     { return make_token(scanner, token, KW_ELSE); }
-    "switch"   { return make_token(scanner, token, KW_SWITCH); }
-    "case"     { return make_token(scanner, token, KW_CASE); }
-    "default"  { return make_token(scanner, token, KW_DEFAULT); }
+    "package"  { return TK(PACKAGE); }
+    "import"   { return TK(IMPORT); }
+    "var"      { return TK(VAR); }
+    "const"    { return TK(CONST); }
+    "type"     { return TK(TYPE); }
+    "struct"   { return TK(STRUCT); }
+    "func"     { return TK(FUNC); }
+    "return"   { return TK(RETURN); }
+    "for"      { return TK(FOR); }
+    "break"    { return TK(BREAK); }
+    "continue" { return TK(CONTINUE); }
+    "if"       { return TK(IF); }
+    "else"     { return TK(ELSE); }
+    "switch"   { return TK(SWITCH); }
+    "case"     { return TK(CASE); }
+    "default"  { return TK(DEFAULT); }
 
-    identifier { return make_token(scanner, token, TK_IDENTIFIER); }
+    identifier { return TK(IDENTIFIER); }
 
     // Separator
 
-    "(" { return make_token(scanner, token, SP_LPAREN); }
-    ")" { return make_token(scanner, token, SP_RPAREN); }
-    "[" { return make_token(scanner, token, SP_LBRACKET); }
-    "]" { return make_token(scanner, token, SP_RBRACKET); }
-    "{" { return make_token(scanner, token, SP_LBRACE); }
-    "}" { return make_token(scanner, token, SP_RBRACE); }
+    "(" { return TK(L_PAREN); }
+    ")" { return TK(R_PAREN); }
+    "[" { return TK(L_BRACKET); }
+    "]" { return TK(R_BRACKET); }
+    "{" { return TK(L_BRACE); }
+    "}" { return TK(R_BRACE); }
 
     "=" {
       return make_token(scanner, token, OP_ASSIGN);
