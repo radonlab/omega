@@ -35,9 +35,12 @@ static inline omg_token make_token(omg_scanner* scanner, const char* token, int 
 
 #define TK(type) make_token(scanner, token, TK_##type)
 
+/*!include:re2c "unicode_categories.re" */
+
 /*!re2c
-  re2c:yyfill:enable = 0;
   re2c:define:YYCTYPE = char;
+  re2c:encoding:utf8 = 1;
+  re2c:yyfill:enable = 0;
  */
 omg_token omg_scanner_scan(omg_scanner* scanner) {
   const char* token;
@@ -51,23 +54,22 @@ omg_token omg_scanner_scan(omg_scanner* scanner) {
     newline = "\n";
     whitespace = [ \t\v\r]+;
     comment = "#" [^\n\x00]*;
-    char =  [^\x00-\x7F]|[a-zA-Z_];
-    digit = [0-9];
-    identifier = char (char | digit)*;
-    squote_string = "'" ("\\"[^\x00] | [^'\x00\n\\])* "'";
-    dquote_string = '"' ('\\'[^\x00] | [^"\x00\n\\])* '"';
-    squote_long_string =
-        "'''" ( "\\"[^\x00]
-            | ("'" | "'" "\\"+ "'" | "'" "\\"+) [^'\x00\\]
-            | ("''" | "''" "\\"+) [^'\x00\\]
-            | [^'\x00\\] )*
-        "'''";
-    dquote_long_string =
-        '"""' ( '\\'[^\x00]
-            | ('"' | '"' '\\'+ '"' | '"' '\\'+) [^"\x00\\]
-            | ('""' | '""' '\\'+) [^"\x00\\]
-            | [^"\x00\\] )*
-        '"""';
+
+    // Fragments
+
+    unicode_letter = Lu | Ll | Lt | Lm | Lo;
+    unicode_digit = Nd;
+
+    letter = unicode_letter | "_";
+    dec_digit = [0-9];
+    oct_digit = [0-7];
+    hex_digit = [0-9a-fA-F];
+    bin_digit = [01];
+    exponent = [eE] [+-]? dec_digit+;
+
+    identifier = letter (letter | unicode_digit)*;
+    rune = "'" ('\\'[^\x00] | [^'\x00\n\\]) "'";
+    string = '"' ('\\'[^\x00] | [^"\x00\n\\])* '"';
 
     * {
     }
